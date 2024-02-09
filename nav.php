@@ -44,6 +44,10 @@
               <li class="nav-item">
                 <a class="nav-link active" href="https://192.168.1.12/qmaker/teacher/tpage.php">home Page</a>
               </li>
+
+              <li class="nav-item">
+                <a class="nav-link active" href="https://192.168.1.12/qmaker/teacher/exams_manager.php">exams manager</a>
+              </li>
       
             </ul>
           </div>

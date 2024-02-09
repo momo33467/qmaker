@@ -40,7 +40,9 @@
 
 <main class="m-auto container" >
 <?php
-    
+    if(isset($_SESSION["qinfo"])){
+        $_SESSION["qinfo"] = "none";
+    }
     if(isset($_SESSION['info']) && $_SESSION['info']->role==='Teacher'){
         $info2=$_SESSION['info'];
 
@@ -60,7 +62,7 @@
                     
         
                     <label class="form-label" for="">passcode:</label>
-                    <input class="form-control" type="text" name="passcode" required>
+                    <input class="form-control" type="password" name="passcode" required>
                     <br>
                     <button class="btn btn-outline-dark" type="submit" name="make" id="mo">make</button>
                     

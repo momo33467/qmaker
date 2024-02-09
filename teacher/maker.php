@@ -27,7 +27,7 @@
 
         #cont{
             background-color: white;
-            width: 40% !important;
+            /* width: 40% !important; */
         }
 
         .qs{
@@ -75,12 +75,22 @@
             }
 
         }
-
-        $qinfo = $database->prepare("SELECT * FROM quizzes WHERE tid = :id ORDER BY ID DESC LIMIT 1");
-        $qinfo->bindParam('id', $_SESSION['info']->ID);
         
-        if($qinfo->execute()){
-            $qinfo2 = $qinfo->fetchObject();
+        if(!isset($_SESSION["qinfo"]) or $_SESSION["qinfo"] == "none"){
+            $qinfo = $database->prepare("SELECT * FROM quizzes WHERE tid = :id ORDER BY ID DESC LIMIT 1");
+            $qinfo->bindParam('id', $_SESSION['info']->ID);
+
+            $qinfo->execute();
+            $flag = false;
+        }else{
+            $flag = true;
+            $qinfo2 = $_SESSION["qinfo"];
+        }
+       
+            if(!$flag){
+                $qinfo2 = $qinfo->fetchObject();
+            }
+
             echo '<br>';
             echo'<div id="sh" class="shadow p-3 mb-1 bg-body rounded"><h4> '.$qinfo2->name.'</h4></div>';
 
@@ -106,16 +116,16 @@
 
                         <label class="form-label" for="">Option 3:</label>
                         <input class="form-control qs" type="text" name="n2">
-                        <input type="radio" name = "r0" value = "r1">
+                        <input type="radio" name = "r0" value = "r2">
                         <br>
 
                         <label class="form-label" for="">Option 4:</label>
                         <input class="form-control qs" type="text" name="n3">
-                        <input type="radio" name = "r0" value = "r1">
+                        <input type="radio" name = "r0" value = "r3">
                         <br>
                     </div>
             
-                    <div><button class="btn btn-outline-dark" name="send" type="submit">submit</button></div>
+                    <div><button class="btn btn-outline-dark" name="send" type="submit">Save</button></div>
             
                     <input name="ques" id="inp1" value="1" type="hidden">
                     <input name="ans" id="inp2" value="4" type="hidden">
@@ -127,9 +137,6 @@
             
             </div>';
 
-        }else{
-            echo "error";
-        }
 
         if(isset($_POST["ques"])){
             
@@ -137,17 +144,20 @@
            for($i = 0; $i < $_POST["ans"]; $i++){
  
                  if($i % 4 == 0){
-                     $qus = $database->prepare("INSERT INTO questions(text,qid) VALUES(:te,:id)");
+                     $qus = $database->prepare("INSERT INTO questions(text,qid,tid) VALUES(:te,:id,:t)");
                      $qus->bindParam("te",$_POST["q" . $qn]);
                      $qus->bindParam("id",$qinfo2->ID);
+                     $qus->bindParam("t",$_SESSION["info"]->ID);
 
                      $qus->execute();
                      $qn++;
                      
                  }
  
-                 $opt = $database->prepare("INSERT INTO options(text,qid2,iscorrect) VALUES(:te2,:id2,:correct)");
+                 $opt = $database->prepare("INSERT INTO options(text,qid2,iscorrect,tid,quiz) VALUES(:te2,:id2,:correct,:t,:id)");
                  $opt->bindParam("te2",$_POST["n" . $i]);
+                 $opt->bindParam("t",$_SESSION["info"]->ID);
+                 $opt->bindParam("id",$qinfo2->ID);
 
                  $qid = $database->prepare("SELECT ID FROM questions WHERE qid = :id3 ORDER BY ID DESC LIMIT 1");
                  $qid->bindParam("id3",$qinfo2->ID);
@@ -166,6 +176,8 @@
                  $opt->execute();
 
            }
+           $_SESSION["qinfo"] = $qinfo2;
+           echo '<script>window.location.href = "https://192.168.1.12/qmaker/teacher/saved.php";</script>';
  
          }
 
@@ -264,7 +276,13 @@
         });
     });
 
-    
+    if(screen.width <= 500){
+        var cont = document.getElementById("cont");
+        cont.style.width = "90%";
+    }else{
+        var cont = document.getElementById("cont");
+        cont.style.width = "40%";
+    }
 </script>
 </body>
 </html>
