@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
 
     <style>
+        input[type="radio"] {
+            cursor: pointer;
+            margin-left: 5px;
+        }
         body{
             background-color: rgb(240, 235, 248);
         }
@@ -44,12 +48,15 @@
             background: none;
             padding: 0;
             font-size: 45px;
+        }
 
+        .flexer{
+            display: flex;
         }
     </style>
 </head>
 <body>
-
+<!-- الغلابة فورم -->
    
 <?php require_once '../nav.php'; ?>
 
@@ -105,27 +112,38 @@
 
                         <br>
                         <label class="form-label" for="">Option 1:</label>
-                        <input class="form-control qs"  type="text" name="n0">
-                        <input type="radio" name = "r0" value = "r0">
+                        <div class = "flexer">
+                            <input class="form-control qs"  type="text" name="n0">
+                            <input type="radio" name = "r0" value = "r0">
+                        </div>
                         <br>
 
                         <label class="form-label" for="">Option 2:</label>
-                        <input class="form-control qs"  type="text" name="n1">
-                        <input type="radio" name = "r0" value = "r1">
+                        <div class = "flexer">
+                            <input class="form-control qs"  type="text" name="n1">
+                            <input type="radio" name = "r0" value = "r1">
+                        </div>
                         <br>
 
                         <label class="form-label" for="">Option 3:</label>
-                        <input class="form-control qs" type="text" name="n2">
-                        <input type="radio" name = "r0" value = "r2">
+                        <div class = "flexer">
+                            <input class="form-control qs" type="text" name="n2">
+                            <input type="radio" name = "r0" value = "r2">
+                        </div>
                         <br>
 
                         <label class="form-label" for="">Option 4:</label>
-                        <input class="form-control qs" type="text" name="n3">
-                        <input type="radio" name = "r0" value = "r3">
+                        <div class = "flexer">
+                            <input class="form-control qs" type="text" name="n3">
+                            <input type="radio" name = "r0" value = "r3">
+                        </div>
                         <br>
                     </div>
             
-                    <div><button class="btn btn-outline-dark" name="send" type="submit">Save</button></div>
+                    <div>
+                        <button class="btn btn-outline-dark" name="send" type="submit">Save</button>
+                        <a href = "https://192.168.1.12/qmaker/teacher/saved.php" class="btn btn-outline-info" name="send2" type="submit">editor</a>    
+                    </div>
             
                     <input name="ques" id="inp1" value="1" type="hidden">
                     <input name="ans" id="inp2" value="4" type="hidden">
@@ -222,26 +240,35 @@
         main.appendChild(br);
         for(var i = 0; i<4; i++){
 
+            var flexer2 = document.createElement("div");
+            flexer2.classList.add("flexer");
+
             var la2 = document.createElement("label");
             la2.classList.add("form-label");
+
             la2.innerHTML = "option " + parseInt(i+1) + ":";
-            main.appendChild(la2)
+            main.appendChild(la2);
 
 
             var ans = document.createElement("input");
             ans.name = "n" + String(parseInt(localStorage.getItem("ansn")) + i);
+
             ans.classList.add("form-control");
             ans.classList.add("qs");
 
             var radi = document.createElement("input");
             radi.name = "r" + String(parseInt(localStorage.getItem("q")) - 1 );
+
             radi.value = "r" + String(parseInt(localStorage.getItem("ansn")) + i);
             radi.type = "radio";
             
 
             br = document.createElement("br");
-            main.appendChild(ans);
-            main.appendChild(radi);
+            flexer2.appendChild(ans);
+
+            flexer2.appendChild(radi);
+            main.appendChild(flexer2);
+
             main.appendChild(br);
         }
         

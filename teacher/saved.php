@@ -79,75 +79,81 @@
 
         if(isset($_SESSION["info"]) && $_SESSION["info"]->role == "Teacher" && isset($_SESSION["qinfo"])){
 
-            echo '<br>';
-            echo'<div id="sh" class="shadow p-3 mb-1 bg-body rounded"><h4> '.$_SESSION["qinfo"]->name.'</h4></div>';
+            if(is_object($_SESSION["qinfo"])){
+                echo '<br>';
+                echo'<div id="sh" class="shadow p-3 mb-1 bg-body rounded"><h4> '.$_SESSION["qinfo"]->name.'</h4></div>';
 
-            $quests = $database->prepare("SELECT * FROM questions WHERE qid = :id AND tid = :t ");
-            $quests->bindParam("t",$_SESSION["info"]->ID);
-            $quests->bindParam("id",$_SESSION["qinfo"]->ID);
+                $quests = $database->prepare("SELECT * FROM questions WHERE qid = :id AND tid = :t ");
+                $quests->bindParam("t",$_SESSION["info"]->ID);
+                $quests->bindParam("id",$_SESSION["qinfo"]->ID);
 
-            $options = $database->prepare("SELECT * FROM options WHERE quiz = :id AND tid = :t ");
-            $options->bindParam("t",$_SESSION["info"]->ID);
-            $options->bindParam("id",$_SESSION["qinfo"]->ID);
+                $options = $database->prepare("SELECT * FROM options WHERE quiz = :id AND tid = :t ");
+                $options->bindParam("t",$_SESSION["info"]->ID);
+                $options->bindParam("id",$_SESSION["qinfo"]->ID);
 
-            if($quests->execute() && $options->execute()){
+                if($quests->execute() && $options->execute()){
 
-                $x = 0;
-                $j = 1;
-                echo '<div class="container" id = "cont">';
-                foreach($quests as $qs){
-                    echo'
-                    <br>
-                           <div id="main" style="display: block;">
-                           <label class="form-label qla" for="">Question '.$j.':</label>
-                            <form method = "post" class = "forms1">
-                             <textarea oninput="autoResize()" class="form-control tex2" id = "tex"  name="q0" rows="1" autocomplete="off">'.$qs["text"].'</textarea>
+                    $x = 0;
+                    $j = 1;
+                    echo '<div class="container" id = "cont">';
+                    foreach($quests as $qs){
+                        echo'
+                        <br>
+                            <div id="main" style="display: block;">
+                            <label class="form-label qla" for="">Question '.$j.':</label>
+                                <form method = "post" class = "forms1">
+                                <textarea oninput="autoResize()" class="form-control tex2" id = "tex"  name="q0" rows="1" autocomplete="off">'.$qs["text"].'</textarea>
 
-                             <button type="submit" name="strush" class="delete-button" value = "'.$qs["ID"].'">
-                                <i style="font-size:24px; color:red; margin-left:5px" class="fa delete-icon">&#xf014;</i>
-                            </button>
-
-                            <button type="submit" name="editq" class="delete-button" value = "'.$qs["ID"].'">
-                                    <i style="font-size:24px; margin-left:5px" class="fa">&#xf040;</i>
-                                </button>
-                            </form>
-                       ';
-                       
-                    $l = 1;
-                    for ($i = $x; $i < $x + 4; $i++) {
-                        if ($row = $options->fetch(PDO::FETCH_ASSOC)) {
-                            echo  '<br>
-
-                            <label class="form-label" for="">Option '.$l.':</label>
-                            <form method = "post" class = "forms">
-
-                            <input class="form-control qs" value = "'.$row["text"].'" type="text" name="n0">
-                            <button type="submit" name="correct" class="delete-button" value = "'.$row["ID"].'">
-                                <i style="font-size:15px; margin-left: 3px;" class="fa">&#xf00c;</i>
+                                <button type="submit" name="strush" class="delete-button" value = "'.$qs["ID"].'">
+                                    <i style="font-size:24px; color:red; margin-left:5px" class="fa delete-icon">&#xf014;</i>
                                 </button>
 
-                                <button type="submit" name="edit" class="delete-button" value = "'.$row["ID"].'">
-                                    <i style="font-size:24px; margin-left:5px" class="fa">&#xf040;</i>
-                                </button>
+                                <button type="submit" name="editq" class="delete-button" value = "'.$qs["ID"].'">
+                                        <i style="font-size:24px; margin-left:5px" class="fa">&#xf040;</i>
+                                    </button>
+                                </form>
+                        ';
+                        
+                        $l = 1;
+                        for ($i = $x; $i < $x + 4; $i++) {
+                            if ($row = $options->fetch(PDO::FETCH_ASSOC)) {
+                                echo  '<br>
 
-                                <input type = "hidden" name = "prevcorect" value = "'.$qs["ID"].'">
-                            </form>
-                            <br>';
-                            $l++;
+                                <label class="form-label" for="">Option '.$l.':</label>
+                                <form method = "post" class = "forms">
+
+                                <input class="form-control qs" value = "'.$row["text"].'" type="text" name="n0">
+                                <button type="submit" name="correct" class="delete-button" value = "'.$row["ID"].'">
+                                    <i style="font-size:15px; margin-left: 3px;" class="fa">&#xf00c;</i>
+                                    </button>
+
+                                    <button type="submit" name="edit" class="delete-button" value = "'.$row["ID"].'">
+                                        <i style="font-size:24px; margin-left:5px" class="fa">&#xf040;</i>
+                                    </button>
+
+                                    <input type = "hidden" name = "prevcorect" value = "'.$qs["ID"].'">
+                                </form>
+                                <br>';
+                                $l++;
+                            }
                         }
-                    }
-                    echo "</div>";
-                    $x = $x + 4;
-                    echo "</br>";
-                    $j++;
+                        echo "</div>";
+                        $x = $x + 4;
+                        echo "</br>";
+                        $j++;
 
+                    }
+                                    
+                    echo '</div>';
+                }else{
+                    echo '<div id="alert" class="alert alert-danger" role="alert">' .
+                        htmlspecialchars("An error has occurred!", ENT_QUOTES, 'UTF-8') . 
+                    '</div>';
                 }
-                                
-                echo '</div>';
             }else{
                 echo '<div id="alert" class="alert alert-danger" role="alert">' .
-                     htmlspecialchars("An error has occurred!", ENT_QUOTES, 'UTF-8') . 
-                '</div>';
+                htmlspecialchars("you have to click on save first!", ENT_QUOTES, 'UTF-8') . 
+            '</div>';
             }
 
         }else{

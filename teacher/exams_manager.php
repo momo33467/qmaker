@@ -42,6 +42,7 @@
             $quizzes->execute();
 
             foreach($quizzes as $quiz){
+                
                 echo"<div id='result' class='shadow-sm p-3 mb-2'>"
                 ."<span>".
                 'Quiz name: '.$quiz['name'].
@@ -52,6 +53,10 @@
 
                 <form method="post">
                     <button id="bt2" type="submit" name="send03" class="btn btn-warning mt-3" value="'.$quiz["ID"].'">Add more questions</button>
+                 </form>
+
+                 <form method="post">
+                    <button id="bt2" type="submit" name="send04" class="btn btn-secondary mt-3" value="'.$quiz["ID"].'">Settings</button>
                  </form>
             </div>
             ';
@@ -92,6 +97,24 @@
 
             
         }
+
+        if(isset($_POST["send04"])){
+            $quizzes2 = $database->prepare("SELECT * FROM quizzes WHERE tid = :id AND ID = :qid3");
+            $quizzes2->bindParam("id",$_SESSION["info"]->ID);
+            
+            $quizzes2->bindParam("qid3",$_POST["send04"]);
+
+            if(!$quizzes2->execute()){
+                echo "error";
+            }else{
+                $_SESSION["qinfo"] = $quizzes2->fetchObject();
+                echo '<script>window.location.href = "https://192.168.1.12/qmaker/teacher/settings.php";</script>';
+            }
+
+            
+        }
+
+
     ?>
 </body>
 </html>
