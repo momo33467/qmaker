@@ -276,7 +276,7 @@
         });
     });
 
-    if(screen.width <= 500){
+    if(screen.width <= 1000){
         var cont = document.getElementById("cont");
         cont.style.width = "90%";
     }else{
