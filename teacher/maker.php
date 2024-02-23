@@ -6,6 +6,7 @@
     <title>the maker</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
 
+    
     <style>
         input[type="radio"] {
             cursor: pointer;
@@ -56,6 +57,7 @@
     </style>
 </head>
 <body>
+    
 <!-- الغلابة فورم -->
    
 <?php require_once '../nav.php'; ?>
@@ -113,7 +115,7 @@
                         <br>
                         <label class="form-label" for="">Option 1:</label>
                         <div class = "flexer">
-                            <input class="form-control qs"  type="text" name="n0">
+                            <input class="form-control qs"  type="text" name="n0" placeholder="you can keep some filds empty if you want less options">
                             <input type="radio" name = "r0" value = "r0">
                         </div>
                         <br>
@@ -139,7 +141,8 @@
                         </div>
                         <br>
                     </div>
-            
+                    
+                    
                     <div>
                         <button class="btn btn-outline-dark" name="send" type="submit">Save</button>
                         <a href = "https://192.168.1.12/qmaker/teacher/saved.php" class="btn btn-outline-info" name="send2" type="submit">editor</a>    
@@ -263,15 +266,16 @@
             radi.type = "radio";
             
 
-            br = document.createElement("br");
             flexer2.appendChild(ans);
+            br = document.createElement("br");
 
             flexer2.appendChild(radi);
             main.appendChild(flexer2);
-
+            
             main.appendChild(br);
+
         }
-        
+  
         
         localStorage.setItem("ansn", parseInt(localStorage.getItem("ansn")) + 4);
         document.getElementById("inp1").value =  parseInt(localStorage.getItem("q"));

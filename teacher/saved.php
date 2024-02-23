@@ -133,7 +133,7 @@
 
                                     <input type = "hidden" name = "prevcorect" value = "'.$qs["ID"].'">
                                 </form>
-                                <br>';
+                                ';
                                 $l++;
                             }
                         }
