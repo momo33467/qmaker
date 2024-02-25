@@ -13,10 +13,16 @@
     </style>
 </head>
 <body>
+    
      <?php require_once '../nav.php'; ?>
 
      <?php
-        if(isset($_SESSION["qid"])){
+
+       $username = 'root';
+       $password = '';
+       $database = new PDO("mysql:host=localhost; dbname=exams;", $username, $password);
+
+        if(isset($_SESSION["qid"])or isset($_GET["QID"])){
             echo '<br>';
             
             echo '
@@ -27,19 +33,52 @@
         
                 <div class="mt-3">
                     <div>
-                        <form action="">
+                        <form action="" method = "post">
                             <p>Passcode:</p>
-                            <input type="password" class="w-100 form-control mb-2" name="passcode">
+                            <input required type="password" class="w-100 form-control mb-2" name="passcode">
         
                             </div>
                             <div>
-                                <button class="btn btn-secondary w-100">go</button>
+                                <button type = "submit" name = "pass" class="btn btn-secondary w-100">go</button>
                             </div>
         
                         </form>
                 </div>
             </div>
             ';
+
+            if(isset($_POST['pass'])){
+                $check = $database->prepare("SELECT * FROM quizzes WHERE passcode = :pass AND ID = :id");
+                $check->bindParam("pass",$_POST["passcode"]);
+
+                if(!isset($_GET["QID"]))
+                    $check->bindParam("id",$_SESSION["qid"]);
+                else
+                    $check->bindParam("id",$_GET["QID"]);
+                
+                if($check->execute()){
+                    
+                    if($check->rowCount()>0){
+
+                        $_SESSION["quizinfo"] = $check->fetchObject();
+                        header("location:https://192.168.1.12/qmaker/student/exam.php",true);
+
+                     }else{
+                        
+                        echo "<br>";
+                        echo '<div id="alert" class="alert alert-danger" role="alert">' .
+                        htmlspecialchars("wrong passcode!", ENT_QUOTES, 'UTF-8') . 
+                    '</div>';
+                     }
+
+                }else{
+
+                    echo '<div id="alert" class="alert alert-danger" role="alert">' .
+                     htmlspecialchars("An error has occurred!", ENT_QUOTES, 'UTF-8') . 
+                 '</div>';
+                }
+
+            }
         }else{
             header("location:https://192.168.1.12/qmaker/login.php",true);
         }

@@ -13,6 +13,7 @@
     </style>
 </head>
 <body>
+    
     <?php require_once '../nav.php'; ?>
     <?php
         $username = 'root';
@@ -41,6 +42,12 @@
                    <a href = "https://192.168.1.12/qmaker/teacher/exams_manager.php" class="mt-2 btn btn-dark">Return</a>
 
                </form>
+
+               <div>
+                <br>
+                <button class = "btn btn-secondary" value = "https://192.168.1.12/qmaker/student/authen.php?QID='.$_SESSION["qinfo"]->ID.'" id = "link">copy exam link</button>
+               </div>
+
            </main>';
 
         }else{
@@ -68,6 +75,24 @@
             
         }
     ?>
+
+   <script>
+    var link = document.getElementById("link");
+
+    link.onclick = function() {
+        var textToCopy = link.value;
+
+        var temp = document.createElement("input");
+        document.body.appendChild(temp);
+        temp.value = textToCopy;
+        
+        temp.select();
+        document.execCommand("copy");
+        document.body.removeChild(temp);
+
+        alert("Text copied to clipboard: " + textToCopy);
+    }
+</script>
 
 </body>
 

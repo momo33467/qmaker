@@ -62,7 +62,7 @@
                     
         
                     <label class="form-label" for="">passcode:</label>
-                    <input class="form-control" type="password" name="passcode" required>
+                    <input class="form-control" type="password" placeholder = "make it strong" name="passcode" required>
                     <br>
                     <button class="btn btn-outline-dark" type="submit" name="make" id="mo">make</button>
                     

@@ -208,6 +208,15 @@
 ?>
 
 <script>
+
+    window.addEventListener('beforeunload', function (e) {
+        
+        var confirmationMessage = 'Are you sure you want to refresh? Your changes may not be saved.';
+        
+        e.returnValue = confirmationMessage; // Legacy method for cross browser support
+        return confirmationMessage; // Some browsers support this
+    });
+
     var main = document.getElementById("main");
 
     localStorage.setItem("ansn", 4);
@@ -314,6 +323,8 @@
         var cont = document.getElementById("cont");
         cont.style.width = "40%";
     }
+
+    
 </script>
 </body>
 </html>
