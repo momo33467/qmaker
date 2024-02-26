@@ -51,23 +51,37 @@
                 $check = $database->prepare("SELECT * FROM quizzes WHERE passcode = :pass AND ID = :id");
                 $check->bindParam("pass",$_POST["passcode"]);
 
-                if(!isset($_GET["QID"]))
+                if(!isset($_GET["QID"])){
                     $check->bindParam("id",$_SESSION["qid"]);
-                else
+                    $qid = $_SESSION["qid"];
+                }
+                else{
                     $check->bindParam("id",$_GET["QID"]);
+                    $qid = $_SESSION["qid"];
+                }
                 
                 if($check->execute()){
-                    
+                    $check2 = $check->fetchObject();
                     if($check->rowCount()>0){
+                        $results = $database->prepare("SELECT * FROM attempt WHERE student = :stid AND qid = :qu");
+                        $results->bindParam("stid",$_SESSION["info"]->ID);
+                        $results->bindParam("qu",$qid);
+                        $results->execute();
 
-                        $_SESSION["quizinfo"] = $check->fetchObject();
-                        header("location:https://192.168.1.12/qmaker/student/exam.php",true);
-
+                        if($results->rowCount() < $check2->NumOfAttempts){
+                            $_SESSION["quizinfo"] = $check2;
+                            header("location:https://192.168.1.12/qmaker/student/exam.php",true);
+                        }else{
+                            echo "<br>";
+                            echo '<div id="alert" class="alert alert-danger" role="alert">' .
+                            htmlspecialchars("you are not authorized!", ENT_QUOTES, 'UTF-8').
+                            '</div>';
+                        }
                      }else{
                         
                         echo "<br>";
                         echo '<div id="alert" class="alert alert-danger" role="alert">' .
-                        htmlspecialchars("wrong passcode!", ENT_QUOTES, 'UTF-8') . 
+                        htmlspecialchars("you are not authorized!", ENT_QUOTES, 'UTF-8') . 
                     '</div>';
                      }
 

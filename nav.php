@@ -76,7 +76,11 @@
                 <li class="nav-item">
                   <a class="nav-link active" href="https://192.168.1.12/qmaker/student/stpage.php">home Page</a>
                 </li>
-        
+
+                <li class="nav-item">
+                  <a class="nav-link active" href="https://192.168.1.12/qmaker/student/scores.php">my grades</a>
+                </li>
+
               </ul>
             </div>
           </div>
