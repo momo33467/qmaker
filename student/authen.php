@@ -23,6 +23,7 @@
        $database = new PDO("mysql:host=localhost; dbname=exams;", $username, $password);
 
         if(isset($_SESSION["qid"])or isset($_GET["QID"])){
+            
             echo '<br>';
             
             echo '
@@ -57,7 +58,7 @@
                 }
                 else{
                     $check->bindParam("id",$_GET["QID"]);
-                    $qid = $_SESSION["qid"];
+                    $qid = $_GET["QID"];
                 }
                 
                 if($check->execute()){
