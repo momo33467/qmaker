@@ -36,6 +36,12 @@
             width: 50% !important;
             margin: auto;
         }
+
+        #question{
+            word-wrap: break-word;
+            white-space: pre-wrap;
+            margin: 0 !important;
+        }
     </style>
 
 </head>
@@ -73,7 +79,7 @@
                     echo'<div id = "qs">';
 
                         echo '<div style = "color:red;">
-                                <p>'.$j.':'.$qs["text"].'</p>
+                                <p id = "question">'.$j.':'.$qs["text"].'</p>
                                 </div>
                             ';
                         $l = 1;
