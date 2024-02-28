@@ -95,7 +95,7 @@
                                         </div>
                                     ';
                                 }else{
-                                    break;
+                                    continue;
                                 }
                                 $l++;
                             }

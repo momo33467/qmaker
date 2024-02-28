@@ -38,7 +38,7 @@
         echo'<div id="sh" class="shadow p-3 mb-1 bg-body rounded"> Welcome'.' '.$_SESSION["info"]->name.'</div>';
        foreach($results as $result){
             echo '
-                <div class="container mt-4" style="max-width: 250px;">
+                <div class="container mt-4" style="width: 250px;">
                 <div class="text-center">
                     <img id="img" src="A+.jpg" alt="error" class="img-fluid rounded" style="width: 200px; height: 200px;">
                 </div>
