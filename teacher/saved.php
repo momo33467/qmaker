@@ -123,11 +123,11 @@
                                 <form method = "post" class = "forms">
 
                                 <input class="form-control qs" value = "'.$row["text"].'" type="text" name="n0">
-                                <button type="submit" name="correct" class="delete-button" value = "'.$row["ID"].'">
+                                <button type="submit" name="correct" title = "click me to make this the correct answer!" class="delete-button" value = "'.$row["ID"].'">
                                     <i style="font-size:15px; margin-left: 3px;" class="fa">&#xf00c;</i>
                                     </button>
 
-                                    <button type="submit" name="edit" class="delete-button" value = "'.$row["ID"].'">
+                                    <button type="submit" title = "make it empty and then click me to delete!" name="edit" class="delete-button" value = "'.$row["ID"].'">
                                         <i style="font-size:24px; margin-left:5px" class="fa">&#xf040;</i>
                                     </button>
 
@@ -143,8 +143,9 @@
                         $j++;
 
                     }
-                                    
-                    echo '</div>';
+                    echo' <a href = "https://'.$ip.'/qmaker/teacher/maker.php" class="btn btn-outline-info" name="send2" >Add more questions</a>';
+                    echo '<br>';
+                   echo '</div>';
                 }else{
                     echo '<div id="alert" class="alert alert-danger" role="alert">' .
                         htmlspecialchars("An error has occurred!", ENT_QUOTES, 'UTF-8') . 
@@ -157,7 +158,7 @@
             }
 
         }else{
-            echo '<script>window.location.href = "https://192.168.1.12/qmaker/login.php";</script>';
+            echo '<script>window.location.href = "https://'.$ip.'/qmaker/login.php";</script>';
         }
 
         // pls check for security
@@ -185,7 +186,7 @@
             echo "<br>";
             echo '<div id="alert" class="alert alert-success" role="alert">' .
             htmlspecialchars("the correct anwer has been updated!", ENT_QUOTES, 'UTF-8') . '</div>';
-            echo '<script>setTimeout(function(){ window.location.href = "https://192.168.1.12/qmaker/teacher/saved.php"; }, 2000);</script>';
+            echo '<script>setTimeout(function(){ window.location.href = "https://'.$ip.'/qmaker/teacher/saved.php"; }, 2000);</script>';
 
         }
 
@@ -195,7 +196,7 @@
 
             $up3->bindParam("id",$_POST["edit"]);
             $up3->execute();
-            echo '<script>window.location.href = "https://192.168.1.12/qmaker/teacher/saved.php";</script>';
+            echo '<script>window.location.href = "https://'.$ip.'/qmaker/teacher/saved.php";</script>';
 
         }
 
@@ -206,7 +207,7 @@
 
             $up3->bindParam("id",$_POST["editq"]);
             $up3->execute();
-            echo '<script>window.location.href = "https://192.168.1.12/qmaker/teacher/saved.php";</script>';
+            echo '<script>window.location.href = "https://'.$ip.'/qmaker/teacher/saved.php";</script>';
 
         }
     ?>

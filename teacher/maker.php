@@ -71,10 +71,12 @@
 
         if(isset($_POST["name"])){
 
-            $make = $database->prepare("INSERT INTO quizzes(name,tid,passcode) VALUES(:nam,:t,:pass)");
+            $make = $database->prepare("INSERT INTO quizzes(name,tid,passcode,NumOfAttempts) VALUES(:nam,:t,:pass,:attm)");
             $make->bindParam('nam',$_POST["name"]);
             $make->bindParam('t',$_SESSION["info"]->ID);
+            
             $make->bindParam('pass',$_POST["passcode"]);
+            $make->bindParam("attm", $_POST["attmpts"]);
             
 
             if(!$make->execute()){
@@ -145,7 +147,7 @@
                     
                     <div>
                         <button class="btn btn-outline-dark" name="send" type="submit">Save</button>
-                        <a href = "https://192.168.1.12/qmaker/teacher/saved.php" class="btn btn-outline-info" name="send2" type="submit">editor</a>    
+                        <a href = "https://'.$ip.'/qmaker/teacher/saved.php" class="btn btn-outline-info" name="send2" type="submit">editor</a>    
                     </div>
             
                     <input name="ques" id="inp1" value="1" type="hidden">
@@ -198,12 +200,12 @@
 
            }
            $_SESSION["qinfo"] = $qinfo2;
-           echo '<script>window.location.href = "https://192.168.1.12/qmaker/teacher/saved.php";</script>';
+           echo '<script>window.location.href = "https://'.$ip.'/qmaker/teacher/saved.php";</script>';
  
          }
 
     }else{
-        header("location:https://192.168.1.12/qmaker/login.php",true);
+        header("location:https://'.$ip.'/qmaker/login.php",true);
     }
 ?>
 

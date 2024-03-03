@@ -31,7 +31,7 @@
             <br>
             <label class="form-label" for="">Password:</label>
             <input class="form-control" name="password" type="password" placeholder="refresh the page to take a look at the password rules" required>
-
+            <br>
             <label for="exampleSelect" class="form-label">Select your role:</label>
             <select required class="form-select" name="role"  aria-label="Default select example">
                 <option selected>Select an option</option>
@@ -41,9 +41,8 @@
 
             <br>
             <button class="btn btn-outline-dark" type="submit" name="reg_sub" id="mo">register</button>
-            <a class="btn btn-outline-success" href="https://192.168.1.12/qmaker/login.php">sign in instead</a>
-
-             
+            <a class="btn btn-outline-success" href="https://127.0.0.1/qmaker/login.php">sign in instead</a>
+            <br>
         </form>
     </div>
     <?php
@@ -132,9 +131,9 @@
                     $mail->addAddress($email);
                     $mail->Subject = "Verification code of your email:";
                     $mail->Body = '<h1>Thank you for registering on our website!</h1>' . "<div>Click on the link below to activate your account!</div>" .
-                        "<a href='https://192.168.1.12/qmaker/activation.php?codes=" . $code . "&mail=" . $email . "'>" .
-                        "https://192.168.1.12/qmaker/activation.php" . "?codes=" . $code . "&mail=" . $email . "</a>";
-                    $mail->setFrom("koko33467890@gmail.com", "codermomo");
+                        "<a href='https://'.$ip.'/qmaker/activation.php?codes=" . $code . "&mail=" . $email . "'>" .
+                        "https://'.$ip.'/qmaker/activation.php" . "?codes=" . $code . "&mail=" . $email . "</a>";
+                    $mail->setFrom("momo334678@gmail.com", "codermomo");
                     $mail->send();
 
                 } else {
@@ -144,7 +143,7 @@
             }
         }
 
-        echo '<script>setTimeout(function(){ window.location.href = "https://192.168.1.12/qmaker/regestration.php"; }, 3000);</script>';
+        echo '<script>setTimeout(function(){ window.location.href = "https://'.$ip.'/qmaker/regestration.php"; }, 3000);</script>';
     }
     ?>
     <script>

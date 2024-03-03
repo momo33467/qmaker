@@ -55,7 +55,7 @@ if(!isset($_GET['secode'])){
         $mail->Subject="Reset password!:";
        echo $mail->Body="click on the linck bello to reset your password:
         <br>
-        "."<a href='https://192.168.1.12/qmaker/repass.php?secode=".$code2->code."&mail5=".$_POST['email4']."'>reset linck</a>";
+        "."<a href='https://'.$ip.'/qmaker/repass.php?secode=".$code2->code."&mail5=".$_POST['email4']."'>reset linck</a>";
         $mail->setFrom("koko33467890@gmail.com","codermomo");
         $mail->send();
         '<div id="alert" class="alert alert-success" role="alert">

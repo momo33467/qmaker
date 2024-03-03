@@ -63,7 +63,7 @@
             }
 
         }else{
-            echo '<script>window.location.href = "https://192.168.1.12/qmaker/login.php";</script>';
+            echo '<script>window.location.href = "https://'.$ip.'/qmaker/login.php";</script>';
         }
 
         // add security mesuers here!
@@ -77,7 +77,7 @@
                 echo "error";
             }else{
                 $_SESSION["qinfo"] = $quizzes2->fetchObject();
-                echo '<script>window.location.href = "https://192.168.1.12/qmaker/teacher/saved.php";</script>';
+                echo '<script>window.location.href = "https://'.$ip.'/qmaker/teacher/saved.php";</script>';
             }
             
         }
@@ -92,7 +92,7 @@
                 echo "error";
             }else{
                 $_SESSION["qinfo"] = $quizzes2->fetchObject();
-                echo '<script>window.location.href = "https://192.168.1.12/qmaker/teacher/maker.php";</script>';
+                echo '<script>window.location.href = "https://'.$ip.'/qmaker/teacher/maker.php";</script>';
             }
 
             
@@ -108,7 +108,7 @@
                 echo "error";
             }else{
                 $_SESSION["qinfo"] = $quizzes2->fetchObject();
-                echo '<script>window.location.href = "https://192.168.1.12/qmaker/teacher/settings.php";</script>';
+                echo '<script>window.location.href = "https://'.$ip.'/qmaker/teacher/settings.php";</script>';
             }
 
             

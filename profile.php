@@ -37,7 +37,7 @@ if(isset($_SESSION['info'])){  // تم حذف تعديل الأيميل مؤقت
     </form>
 </main>';
 }else{
-    header("location:https://192.168.1.12/qmaker/login.php",true);
+    header("location:https://".$ip."/qmaker/login.php",true);
 }
 
 if(isset($_POST['update'])){
@@ -95,7 +95,7 @@ if(isset($_POST['update'])){
                 echo'<div id="alert" class="alert alert-success" role="alert">
                 Your informations have been updated successfully
                 </div>';  
-                echo '<script>setTimeout(function(){ window.location.href = "https://192.168.1.12/qmaker/profiel.php"; }, 3000);</script>';
+                echo '<script>setTimeout(function(){ window.location.href = "https://'.$ip.'/qmaker/profiel.php"; }, 3000);</script>';
         
             }else{
                 echo'<div id="alert" class="alert alert-danger" role="alert">
@@ -118,9 +118,9 @@ if(isset($_POST['update'])){
 }
 if(isset($_POST['track'])){
     if($_SESSION['info']->role==='Teacher'){
-        header("location:https://192.168.1.12/qmaker/teacher/tpage.php",true);
+        header("location:https://".$ip."/qmaker/teacher/tpage.php",true);
     }elseif($_SESSION['info']->role==='Student'){
-        header("location:https://192.168.1.12/qmaker/student/stpgae.php",true);
+        header("location:https://".$ip."/qmaker/student/stpage.php",true);
     }
 }
 ?>

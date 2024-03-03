@@ -49,9 +49,9 @@
         </div>
         ';
         echo '<div>';
-        echo'<a class="btn btn-outline-danger " href="https://192.168.1.12/qmaker/regestration.php" style = "width:100%;">sign up</a>';
+        echo'<a class="btn btn-outline-danger " href="https://'.$ip.'/qmaker/regestration.php" style = "width:100%;">sign up</a>';
         echo '<br>';
-        echo'<a class="btn btn-outline-warning" href="https://192.168.1.12/qmaker/login.php" style = "width:100%;">log in</a>';
+        echo'<a class="btn btn-outline-warning" href="https://'.$ip.'/qmaker/login.php" style = "width:100%;">log in</a>';
         echo '</div>';
     }
     ?>

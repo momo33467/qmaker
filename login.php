@@ -22,8 +22,8 @@
     <label  class="form-label" for="">Password:</label>
     <input required  class="form-control" type="password" name="passing">
     <button class="btn btn-outline-success mt-3" name="go" type="submit">log in</button>
-    <a class="btn btn-outline-dark mt-3" href="https://192.168.1.12/qmaker/regestration.php">sign up instead</a>
-    <a class="btn btn-outline-warning mt-3" href="https://192.168.1.12/qmaker/repass.php">forgot your password?</a>
+    <a class="btn btn-outline-dark mt-3" href="https://127.0.0.1/qmaker/regestration.php">sign up instead</a>
+    <a class="btn btn-outline-warning mt-3" href="https://127.0.0.1/qmaker/repass.php">forgot your password?</a>
 </form>
 <?php
 if(isset($_POST['go'])){
@@ -40,15 +40,15 @@ if(isset($_POST['go'])){
     $log->execute();
     if($log->rowCount()>0){
         $info=$log->fetchObject();
-        if($info->activated ==='1'){
+        if($info->activated =='1'){
             echo'<br>';
             echo'WELCOME:'.$info->name;
             session_start();
             $_SESSION['info']=$info;
             if($info->role == 'Teacher'){
-                header("location:https://192.168.1.12/qmaker/teacher/tpage.php",true);
+                header("location:https://".$ip."/qmaker/teacher/tpage.php",true);
             }elseif($info->role == 'Student'){
-                header("location:https://192.168.1.12/qmaker/student/stpage.php",true);
+                header("location:https://".$ip."/qmaker/student/stpage.php",true);
 
             }else{
                 echo "error!";

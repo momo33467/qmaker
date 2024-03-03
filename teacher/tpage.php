@@ -50,7 +50,7 @@
 
         echo'<form id = "f1" method="POST">
         <button class="btn btn-outline-secondary mt-3 " id="btn" name="out" type="submit">log out</button>
-        <a id="btn" class="btn btn-outline-warning mt-3" name="update" href="https://192.168.1.12/qmaker/profile.php">update your information</a>
+        <a id="btn" class="btn btn-outline-warning mt-3" name="update" href="https://'.$ip.'/qmaker/profile.php">update your information</a>
         </form>';
         echo "</br>";
 
@@ -63,19 +63,23 @@
         
                     <label class="form-label" for="">passcode:</label>
                     <input class="form-control" type="password" placeholder = "make it strong" name="passcode" required>
-                    <br>
-                    <button class="btn btn-outline-dark" type="submit" name="make" id="mo">make</button>
+
+                    <label  class="form-label" for="">Number of allowed attempts:</label>
+                   <input class="form-control" type="number" value = "1" name="attmpts">
+                   <br>
+                   <button class="btn btn-outline-dark" type="submit"  name="make" id="mo">make</button>
                     
             </form>
         </div>';
+        
         if(isset($_POST['out'])){
             session_destroy();
             session_unset();
-            header("location:https://192.168.1.12/qmaker/login.php",true);
+            header("location:https://".$ip."/qmaker/login.php",true);
         }
         
     }else{
-        header("location:https://192.168.1.12/qmaker/login.php",true);
+        header("location:https://".$ip."/qmaker/login.php",true);
         die("");
     }
 ?> 

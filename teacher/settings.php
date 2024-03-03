@@ -39,19 +39,19 @@
            
                    <input class="form-control" type="number"  value="'.sanitize($_SESSION['qinfo']->NumOfAttempts).'" name="attmpts">
                    <button class=" mt-2 btn btn-success" name="update" type="submit"  value="'.sanitize($_SESSION['qinfo']->ID).'">Update</button>
-                   <a href = "https://192.168.1.12/qmaker/teacher/exams_manager.php" class="mt-2 btn btn-dark">Return</a>
+                   <a href = "https://'.$ip.'/qmaker/teacher/exams_manager.php" class="mt-2 btn btn-dark">Return</a>
 
                </form>
 
                <div>
                 <br>
-                <button class = "btn btn-secondary" value = "https://192.168.1.12/qmaker/student/authen.php?QID='.$_SESSION["qinfo"]->ID.'" id = "link">copy exam link</button>
+                <button class = "btn btn-secondary" value = "https://'.$ip.'/qmaker/student/authen.php?QID='.$_SESSION["qinfo"]->ID.'" id = "link">copy exam link</button>
                </div>
 
            </main>';
 
         }else{
-            echo '<script>window.location.href = "https://192.168.1.12/qmaker/login.php";</script>';
+            echo '<script>window.location.href = "https://'.$ip.'/qmaker/login.php";</script>';
         }
 
         if(isset($_POST["update"])){
@@ -70,7 +70,7 @@
 
                 $up->execute();
                 $_SESSION['qinfo'] = $up->fetchObject();
-                echo '<script>window.location.href = "https://192.168.1.12/qmaker/teacher/settings.php";</script>';
+                echo '<script>window.location.href = "https://'.$ip.'/qmaker/teacher/settings.php";</script>';
             }
             
         }

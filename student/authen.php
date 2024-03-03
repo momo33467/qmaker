@@ -71,7 +71,7 @@
 
                         if($results->rowCount() < $check2->NumOfAttempts){
                             $_SESSION["quizinfo"] = $check2;
-                            header("location:https://192.168.1.12/qmaker/student/exam.php",true);
+                            header("location:https://".$ip."/qmaker/student/exam.php",true);
                         }else{
                             echo "<br>";
                             echo '<div id="alert" class="alert alert-danger" role="alert">' .
@@ -95,7 +95,7 @@
 
             }
         }else{
-            header("location:https://192.168.1.12/qmaker/login.php",true);
+            header("location:https://".$ip."/qmaker/login.php",true);
         }
      ?>
 </body>

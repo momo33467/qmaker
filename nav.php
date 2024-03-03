@@ -19,6 +19,11 @@
 </head>
 <body>
 <?php
+  require __DIR__ . '/vendor/autoload.php';
+
+  $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+  $dotenv->load();
+  $ip = $_ENV['IP_ADDRESS'];  
   session_start();
   if(isset($_SESSION['info'])){
     if($_SESSION['info']->role == "Teacher"){
@@ -34,19 +39,19 @@
             <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;" id="bar">
 
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="https://192.168.1.12/qmaker/regestration.php">sing up</a>
+                <a class="nav-link active" aria-current="page" href="https://'.$ip.'/qmaker/regestration.php">sing up</a>
               </li>
 
               <li class="nav-item">
-                <a class="nav-link active" href="https://192.168.1.12/qmaker/login.php">log in</a>
+                <a class="nav-link active" href="https://'.$ip.'/qmaker/login.php">log in</a>
               </li>
           
               <li class="nav-item">
-                <a class="nav-link active" href="https://192.168.1.12/qmaker/teacher/tpage.php">home Page</a>
+                <a class="nav-link active" href="https://'.$ip.'/qmaker/teacher/tpage.php">home Page</a>
               </li>
 
               <li class="nav-item">
-                <a class="nav-link active" href="https://192.168.1.12/qmaker/teacher/exams_manager.php">exams manager</a>
+                <a class="nav-link active" href="https://'.$ip.'/qmaker/teacher/exams_manager.php">exams manager</a>
               </li>
       
             </ul>
@@ -66,19 +71,19 @@
               <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;" id="bar">
 
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="https://192.168.1.12/qmaker/regestration.php">sing up</a>
+                  <a class="nav-link active" aria-current="page" href="https://'.$ip.'/qmaker/regestration.php">sing up</a>
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link active" href="https://192.168.1.12/qmaker/login.php">log in</a>
+                  <a class="nav-link active" href="https://'.$ip.'/qmaker/login.php">log in</a>
                 </li>
             
                 <li class="nav-item">
-                  <a class="nav-link active" href="https://192.168.1.12/qmaker/student/stpage.php">home Page</a>
+                  <a class="nav-link active" href="https://'.$ip.'/qmaker/student/stpage.php">home Page</a>
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link active" href="https://192.168.1.12/qmaker/student/scores.php">my grades</a>
+                  <a class="nav-link active" href="https://'.$ip.'/qmaker/student/scores.php">my grades</a>
                 </li>
 
               </ul>
@@ -99,10 +104,10 @@
         <div class="collapse navbar-collapse" id="navbarScroll">
           <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;" id="bar">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="https://192.168.1.12/qmaker/regestration.php">sing up</a>
+              <a class="nav-link active" aria-current="page" href="https://'.$ip.'/qmaker/regestration.php">sing up</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="https://192.168.1.12/qmaker/login.php">log in</a>
+              <a class="nav-link active" href="https://'.$ip.'/qmaker/login.php">log in</a>
             </li>
         
             <li class="nav-item">

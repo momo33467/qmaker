@@ -55,7 +55,7 @@
             ';
         }
     }else{
-        header("location:https://192.168.1.12/qmaker/login.php",true);
+        header("location:https://".$ip."/qmaker/login.php",true);
     }
 ?>
 </body>

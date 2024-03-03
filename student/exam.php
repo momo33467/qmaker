@@ -145,7 +145,7 @@
                 $grade->bindParam("nqs",$c);
 
                 if($grade->execute()){
-                    echo '<script>window.location.href = "https://192.168.1.12/qmaker/student/scores.php";</script>"';           
+                    echo '<script>window.location.href = "https://'.$ip.'/qmaker/student/scores.php";</script>"';           
 
                 }else{
 
@@ -164,7 +164,7 @@
         }
 
     }else{
-        header("location:https://192.168.1.12/qmaker/login.php",true);
+        header("location:https://".$ip."/qmaker/login.php",true);
     }
 
 ?>
