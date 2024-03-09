@@ -72,11 +72,14 @@
         if(isset($_POST["name"])){
 
             $make = $database->prepare("INSERT INTO quizzes(name,tid,passcode,NumOfAttempts) VALUES(:nam,:t,:pass,:attm)");
-            $make->bindParam('nam',$_POST["name"]);
+            $sqname = sanitize($_POST["name"]);
+            $satt =   sanitize($_POST["attmpts"]);
+            
+            $make->bindParam('nam',$sqname);
             $make->bindParam('t',$_SESSION["info"]->ID);
             
             $make->bindParam('pass',$_POST["passcode"]);
-            $make->bindParam("attm", $_POST["attmpts"]);
+            $make->bindParam("attm",$satt);
             
 
             if(!$make->execute()){
@@ -103,7 +106,7 @@
             }
 
             echo '<br>';
-            echo'<div id="sh" class="shadow p-3 mb-1 bg-body rounded"><h4> '.$qinfo2->name.'</h4></div>';
+            echo'<div id="sh" class="shadow p-3 mb-1 bg-body rounded"><h4> '.sanitize($qinfo2->name).'</h4></div>';
 
             echo'
              <br>
@@ -168,7 +171,9 @@
  
                  if($i % 4 == 0){
                      $qus = $database->prepare("INSERT INTO questions(text,qid,tid) VALUES(:te,:id,:t)");
-                     $qus->bindParam("te",$_POST["q" . $qn]);
+                     $sq = sanitize($_POST["q" . $qn]);
+                    
+                     $qus->bindParam("te",$sq);
                      $qus->bindParam("id",$qinfo2->ID);
                      $qus->bindParam("t",$_SESSION["info"]->ID);
 
@@ -178,7 +183,9 @@
                  }
  
                  $opt = $database->prepare("INSERT INTO options(text,qid2,iscorrect,tid,quiz) VALUES(:te2,:id2,:correct,:t,:id)");
-                 $opt->bindParam("te2",$_POST["n" . $i]);
+                 $sopt = sanitize($_POST["n" . $i]);
+
+                 $opt->bindParam("te2",$sopt);
                  $opt->bindParam("t",$_SESSION["info"]->ID);
                  $opt->bindParam("id",$qinfo2->ID);
 

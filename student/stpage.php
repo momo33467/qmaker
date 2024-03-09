@@ -92,12 +92,12 @@
                             <div class="mt-3">
                                 <div class="d-flex align-items-center mb-2">
                                     <p class="mb-0">name:</p>
-                                    <p class="mb-0 ms-2">'.$result['1'].'</p>
+                                    <p class="mb-0 ms-2">'.sanitize($result['1']).'</p>
                                 </div>
                     
                                 <div class="d-flex align-items-center mb-2">
                                     <p class="mb-0">Teacher name:</p>
-                                    <p class="mb-0 ms-2">'.$result["name"].'</p>
+                                    <p class="mb-0 ms-2">'.sanitize($result["name"]).'</p>
                                 </div>
                     
                                 <div>
@@ -126,7 +126,7 @@
 
                 session_destroy();
                 session_unset();
-                header("location:https://".$ip."/qmaker/login.php",true);
+                echo '<script>window.location.href = "https://'.$ip.'/qmaker/login.php";</script>';
 
             }
 

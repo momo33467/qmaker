@@ -21,9 +21,7 @@
         $database = new PDO("mysql:host=localhost; dbname=exams;", $username, $password);
 
         if(isset($_SESSION["info"]) && $_SESSION["info"]->role == "Teacher" && isset($_SESSION["qinfo"])){
-            function sanitize($value) {
-                return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
-            }
+            
             // you have to do some sequrity things
             echo' 
             <br>

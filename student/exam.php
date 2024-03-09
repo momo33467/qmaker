@@ -70,7 +70,7 @@
             $j = 1;
 
             echo '<br>';
-            echo'<div id="sh" class="shadow p-3 mb-1 bg-body rounded"><h4> '.$_SESSION["quizinfo"]->name.'</h4></div>';
+            echo'<div id="sh" class="shadow p-3 mb-1 bg-body rounded"><h4> '.sanitize($_SESSION["quizinfo"]->name).'</h4></div>';
 
             echo '<div class="container" id = "cont">';
                 echo '<form method = "post">';

@@ -40,6 +40,8 @@
 
 <main class="m-auto container" >
 <?php
+    
+
     if(isset($_SESSION["qinfo"])){
         $_SESSION["qinfo"] = "none";
     }
@@ -75,7 +77,7 @@
         if(isset($_POST['out'])){
             session_destroy();
             session_unset();
-            header("location:https://".$ip."/qmaker/login.php",true);
+            echo '<script>window.location.href = "https://'.$ip.'/qmaker/login.php";</script>';
         }
         
     }else{

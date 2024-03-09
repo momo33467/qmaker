@@ -17,9 +17,7 @@
 <?php
 
 if(isset($_SESSION['info'])){  // تم حذف تعديل الأيميل مؤقتا كيلا يحدث المستخد ايميله ويضع وهمي
-    function sanitize($value) {
-        return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
-    }
+    
     echo' 
  <main class="container m-auto" style="max-width:760px !important ;">
     <form method="POST" >
@@ -99,7 +97,7 @@ if(isset($_POST['update'])){
         
             }else{
                 echo'<div id="alert" class="alert alert-danger" role="alert">
-                An error has ocuerd!
+                    An error has ocuerd!
                 </div>
                 ';
             }
