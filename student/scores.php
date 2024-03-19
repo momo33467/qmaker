@@ -45,11 +45,11 @@
 
                 <div class="mt-3">
                     <div>
-                        Exam:'.$result["name"].'
+                        Exam:'.sanitize($result["name"]).'
                     </div>
                     <div style="display: flex;">
                         <p>Score:</p>
-                        <p>'.$result["score"].'/'.$result["nofqs"].'</p>
+                        <p>'.$result["score"].'/'.sanitize($result["nofqs"]).'</p>
                     </div>
                 </div>
             ';

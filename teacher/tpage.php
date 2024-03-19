@@ -64,7 +64,7 @@
                     
         
                     <label class="form-label" for="">passcode:</label>
-                    <input class="form-control" type="password" placeholder = "make it strong" name="passcode" required>
+                    <input class="form-control" minlength="6" type="password" placeholder = "make it strong" name="passcode" required>
 
                     <label  class="form-label" for="">Number of allowed attempts:</label>
                    <input class="form-control" type="number" value = "1" name="attmpts">

@@ -163,24 +163,31 @@
 
         // pls check for security
         if(isset($_POST["strush"])){
-           $delq = $database->prepare("DELETE FROM options WHERE qid2 = :qid");
+           $delq = $database->prepare("DELETE FROM options WHERE qid2 = :qid AND tid = :tuser");
            $delq->bindParam("qid",$_POST["strush"]);
+
+           $delq->bindParam("tuser",$_SESSION["info"]->ID);
            $delq->execute();
 
-          $delo = $database->prepare("DELETE FROM questions WHERE ID = :qid2");
+          $delo = $database->prepare("DELETE FROM questions WHERE ID = :qid2 AND tid = :tuser");
           $delo->bindParam("qid2",$_POST["strush"]);
+          $delo->bindParam("tuser",$_SESSION["info"]->ID);
           $delo->execute();
         
         }
 
         if(isset($_POST["correct"])){
-            $up = $database->prepare("UPDATE options SET iscorrect = 0 WHERE qid2 = :qid AND iscorrect = 1");
+            $up = $database->prepare("UPDATE options SET iscorrect = 0 WHERE qid2 = :qid AND iscorrect = 1 AND tid = :tuser");
             $up->bindParam("qid",$_POST["prevcorect"]);
+
+            $up->bindParam("tuser",$_SESSION["info"]->ID);
             $up->execute();
 
-            $up2 = $database->prepare("UPDATE options SET iscorrect = 1 WHERE qid2 = :qid AND ID = :id");
+            $up2 = $database->prepare("UPDATE options SET iscorrect = 1 WHERE qid2 = :qid AND ID = :id AND tid = :tuser");
             $up2->bindParam("qid",$_POST["prevcorect"]);
             $up2->bindParam("id",$_POST["correct"]);
+
+            $up2->bindParam("tuser",$_SESSION["info"]->ID);
             $up2->execute();
 
             echo "<br>";
@@ -191,9 +198,12 @@
         }
 
         if(isset($_POST["edit"])){
-            $up3 = $database->prepare("UPDATE options SET text = :ntex WHERE ID = :id");
-            $up3->bindParam("ntex",$_POST["n0"]);
+            $up3 = $database->prepare("UPDATE options SET text = :ntex WHERE ID = :id AND tid = :tuser");
 
+            $sen = sanitize($_POST["n0"]);
+            $up3->bindParam("ntex",$sen);
+
+            $up3->bindParam("tuser",$_SESSION["info"]->ID);
             $up3->bindParam("id",$_POST["edit"]);
             $up3->execute();
             echo '<script>window.location.href = "https://'.$ip.'/qmaker/teacher/saved.php";</script>';
@@ -202,9 +212,11 @@
 
         if(isset($_POST["editq"])){
 
-            $up3 = $database->prepare("UPDATE questions SET text = :ntex WHERE ID = :id");
-            $up3->bindParam("ntex",$_POST["q0"]);
+            $up3 = $database->prepare("UPDATE questions SET text = :ntex WHERE ID = :id AND tid = :tuser");
+            $sen = sanitize($_POST["q0"]);
+            $up3->bindParam("ntex",$sen);
 
+            $up3->bindParam("tuser",$_SESSION["info"]->ID);
             $up3->bindParam("id",$_POST["editq"]);
             $up3->execute();
             echo '<script>window.location.href = "https://'.$ip.'/qmaker/teacher/saved.php";</script>';

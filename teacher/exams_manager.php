@@ -45,7 +45,7 @@
                 
                 echo"<div id='result' class='shadow-sm p-3 mb-2'>"
                 ."<span>".
-                'Quiz name: '.$quiz['name'].
+                'Quiz name: '.sanitize($quiz['name']).
                 '</span>
                 <form method="post">
                     <button id="bt2" type="submit" name="send02" class="btn btn-success mt-3" value="'.$quiz["ID"].'">Go to editor</button>
@@ -76,8 +76,15 @@
             if(!$quizzes2->execute()){
                 echo "error";
             }else{
-                $_SESSION["qinfo"] = $quizzes2->fetchObject();
-                echo '<script>window.location.href = "https://'.$ip.'/qmaker/teacher/saved.php";</script>';
+                if($quizzes2->rowCount() == 0){
+
+                    echo '<div id="alert" class="alert alert-danger" role="alert">
+                        Erorr! </div>';
+                }else{
+                    $_SESSION["qinfo"] = $quizzes2->fetchObject();
+                    echo '<script>window.location.href = "https://'.$ip.'/qmaker/teacher/saved.php";</script>';
+                }
+          
             }
             
         }
@@ -91,8 +98,14 @@
             if(!$quizzes2->execute()){
                 echo "error";
             }else{
-                $_SESSION["qinfo"] = $quizzes2->fetchObject();
-                echo '<script>window.location.href = "https://'.$ip.'/qmaker/teacher/maker.php";</script>';
+                if($quizzes2->rowCount() == 0){
+
+                    echo '<div id="alert" class="alert alert-danger" role="alert">
+                        Erorr! </div>';
+                }else{
+                    $_SESSION["qinfo"] = $quizzes2->fetchObject();
+                    echo '<script>window.location.href = "https://'.$ip.'/qmaker/teacher/maker.php";</script>';
+                }
             }
 
             
@@ -107,8 +120,14 @@
             if(!$quizzes2->execute()){
                 echo "error";
             }else{
-                $_SESSION["qinfo"] = $quizzes2->fetchObject();
-                echo '<script>window.location.href = "https://'.$ip.'/qmaker/teacher/settings.php";</script>';
+                if($quizzes2->rowCount() == 0){
+
+                    echo '<div id="alert" class="alert alert-danger" role="alert">
+                        Erorr! </div>';
+                }else{
+                    $_SESSION["qinfo"] = $quizzes2->fetchObject();
+                    echo '<script>window.location.href = "https://'.$ip.'/qmaker/teacher/settings.php";</script>';
+                }
             }
 
             

@@ -27,7 +27,7 @@
 
   $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
   $dotenv->load();
-  $ip = $_ENV['IP_ADDRESS'];  
+  $ip = $_ENV['sec_IP'];  
   session_start();
   if(isset($_SESSION['info'])){
     if($_SESSION['info']->role == "Teacher"){

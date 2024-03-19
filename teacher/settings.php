@@ -53,9 +53,12 @@
         }
 
         if(isset($_POST["update"])){
-            $upadate = $database->prepare("UPDATE quizzes SET name = :nam, passcode = :code, NumOfAttempts = :attemp WHERE ID = :id");
+            $upadate = $database->prepare("UPDATE quizzes SET name = :nam, passcode = :code, NumOfAttempts = :attemp WHERE ID = :id AND tid = :tuser");
+
             $upadate->bindParam("nam",$_POST["ename"]);
             $upadate->bindParam("code",$_POST["epass"]);
+
+            $upadate->bindParam("tuser",$_SESSION["info"]->ID);
 
             $upadate->bindParam("id",$_SESSION["qinfo"]->ID);
             $upadate->bindParam("attemp",$_POST["attmpts"]);
