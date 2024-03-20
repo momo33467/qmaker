@@ -75,7 +75,7 @@
                             <textarea oninput="autoResize()" class="form-control tex2" id = "tex"  name="q0" rows="1" autocomplete="off"></textarea>
 
                             <label class="custom-file-upload">
-                                <input type="file" name="im0" >
+                                <input type="file" name="im0" accept=".jpg, .jpeg, .png, .gif">
                                 <i style="font-size:24px" class="fa">&#xf0c6;</i>
                             </label>
                         </div>
@@ -112,7 +112,7 @@
                     
                     
                     <div>
-                        <button class="btn btn-outline-dark" name="send" type="submit">Save</button>
+                        <button id = "down" class="btn btn-outline-dark" name="send" type="submit">Save</button>
                         <a href = "https://'.$ip.'/qmaker/teacher/saved.php" class="btn btn-outline-info" name="send2" type="submit">editor</a>    
                     </div>
             
@@ -138,13 +138,22 @@
                     
                      
                      if (!empty($_FILES["im" . $qn]['name'])) {
-                        $fileType = $_FILES["im" . $qn]['type'];
 
-                        $fileTmpName = $_FILES["im" . $qn]['tmp_name'];
-                        $fileData = file_get_contents($fileTmpName);
+                        $allowedExtensions = array("jpg", "jpeg", "png", "gif");
 
-                        $qus->bindParam("im",$fileData);
-                        $qus->bindParam("it",$fileType);
+                        if (in_array(strtolower(pathinfo($_FILES["im" . $qn]['name'], PATHINFO_EXTENSION)), $allowedExtensions)) {
+                            $fileType = $_FILES["im" . $qn]['type'];
+
+                            $fileTmpName = $_FILES["im" . $qn]['tmp_name'];
+                            $fileData = file_get_contents($fileTmpName);
+
+                            $qus->bindParam("im",$fileData);
+                            $qus->bindParam("it",$fileType);
+                        }else{
+                            $qus->bindValue("im","");
+                            $qus->bindValue("it","");
+                        }
+
                      }else{
                         $qus->bindValue("im","");
                         $qus->bindValue("it","");

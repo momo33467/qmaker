@@ -27,9 +27,8 @@ addbtn.onclick = function(){
 
     im.type =  "file";
     im.name =  "im" + String(localStorage.getItem("q"))
+    im.accept = accept=".jpg, .jpeg, .png, .gif"
 
-  
-    
     la.classList.add("form-label");
     la.innerHTML = "Question " + (parseInt(localStorage.getItem("q")) + 1) + ":";
     la.classList.add("qla");

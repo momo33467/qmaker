@@ -33,7 +33,7 @@
     if($_SESSION['info']->role == "Teacher"){
         echo '<nav id = "navers" class="navbar navbar-expand-lg bg-light ">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">
+          <a class="navbar-brand" href="#down" title = "this will take you down">
           <img id="logo" src="logo.png" alt="error">
           </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">

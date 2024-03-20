@@ -159,7 +159,7 @@
                         $j++;
 
                     }
-                    echo' <a href = "https://'.$ip.'/qmaker/teacher/maker.php" class="btn btn-outline-info" name="send2" >Add more questions</a>';
+                    echo' <a href = "https://'.$ip.'/qmaker/teacher/maker.php" class="btn btn-outline-info" name="send2" id = "down">Add more questions</a>';
                     echo '<br>';
                    echo '</div>';
                 }else{
