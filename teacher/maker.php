@@ -4,56 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>the maker</title>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="maker.css">
 
-    
     <style>
-        input[type="radio"] {
-            cursor: pointer;
-            margin-left: 5px;
-        }
-        body{
-            background-color: rgb(240, 235, 248);
-        }
-         #alert{
-            text-align: center !important;
-        }
-
-        .qla{
-            color: red;
-        }
-
-        #sh{
-            text-align: center !important;
-            border: solid red 1px;
-            width: 50% !important;
-            margin: auto;
-        }
-
-        #cont{
-            background-color: white;
-            /* width: 40% !important; */
-        }
-
-        .qs{
-            width: 90% !important;
-        }
-
-        .tex2{
-            width: 94% !important;
-            max-height: 300px;
-            resize: none;
-        }
-        #add{
-            border: none;
-            background: none;
-            padding: 0;
-            font-size: 45px;
-        }
-
-        .flexer{
-            display: flex;
-        }
     </style>
 </head>
 <body>
@@ -111,11 +67,18 @@
             echo'
              <br>
             <div class="container" id = "cont">
-                <form method="post" >
+                <form method="post" enctype="multipart/form-data">
                     <div id="main" style="display: block;">
 
-                      <label class="form-label qla" for="">Question 1:</label>
-                      <textarea oninput="autoResize()" class="form-control tex2" id = "tex"  name="q0" rows="1" autocomplete="off"></textarea>
+                    <label class="form-label qla" for="">Question 1:</label>
+                    <div class = "flexer">
+                            <textarea oninput="autoResize()" class="form-control tex2" id = "tex"  name="q0" rows="1" autocomplete="off"></textarea>
+
+                            <label class="custom-file-upload">
+                                <input type="file" name="im0" >
+                                <i style="font-size:24px" class="fa">&#xf0c6;</i>
+                            </label>
+                        </div>
 
                         <br>
                         <label class="form-label" for="">Option 1:</label>
@@ -170,8 +133,22 @@
            for($i = 0; $i < $_POST["ans"]; $i++){
  
                  if($i % 4 == 0){
-                     $qus = $database->prepare("INSERT INTO questions(text,qid,tid) VALUES(:te,:id,:t)");
+                     $qus = $database->prepare("INSERT INTO questions(text,qid,tid,img,itype) VALUES(:te,:id,:t,:im,:it)");
                      $sq = sanitize($_POST["q" . $qn]);
+                    
+                     
+                     if (!empty($_FILES["im" . $qn]['name'])) {
+                        $fileType = $_FILES["im" . $qn]['type'];
+
+                        $fileTmpName = $_FILES["im" . $qn]['tmp_name'];
+                        $fileData = file_get_contents($fileTmpName);
+
+                        $qus->bindParam("im",$fileData);
+                        $qus->bindParam("it",$fileType);
+                     }else{
+                        $qus->bindValue("im","");
+                        $qus->bindValue("it","");
+                     }
                     
                      $qus->bindParam("te",$sq);
                      $qus->bindParam("id",$qinfo2->ID);
@@ -216,124 +193,6 @@
     }
 ?>
 
-<script>
-
-    window.addEventListener('beforeunload', function (e) {
-        
-        var confirmationMessage = 'Are you sure you want to refresh? Your changes may not be saved.';
-        
-        e.returnValue = confirmationMessage; // Legacy method for cross browser support
-        return confirmationMessage; // Some browsers support this
-    });
-
-    var main = document.getElementById("main");
-
-    localStorage.setItem("ansn", 4);
-    localStorage.setItem("q",1);
-    var addbtn = document.getElementById("add");
-
-    addbtn.onclick = function(){
-
-        var br2 = document.createElement("br")
-        main.appendChild(br2);
-
-        var ques =document.createElement("textarea");
-        var la = document.createElement("label");
-        
-        la.classList.add("form-label");
-        la.innerHTML = "Question " + (parseInt(localStorage.getItem("q")) + 1) + ":";
-        la.classList.add("qla");
-        main.appendChild(la);
-
-        ques.name = "q" + String(localStorage.getItem("q"));
-
-        ques.classList.add("tex2");
-        ques.classList.add("form-control");
-        ques.id = "tex";
-
-        ques.rows = 1;
-        
-        localStorage.setItem("q", parseInt(localStorage.getItem("q")) + 1)
-        
-        main.appendChild(ques);
-        var br = document.createElement("br");
-
-        main.appendChild(br);
-        for(var i = 0; i<4; i++){
-
-            var flexer2 = document.createElement("div");
-            flexer2.classList.add("flexer");
-
-            var la2 = document.createElement("label");
-            la2.classList.add("form-label");
-
-            la2.innerHTML = "option " + parseInt(i+1) + ":";
-            main.appendChild(la2);
-
-
-            var ans = document.createElement("input");
-            ans.name = "n" + String(parseInt(localStorage.getItem("ansn")) + i);
-
-            ans.classList.add("form-control");
-            ans.classList.add("qs");
-
-            var radi = document.createElement("input");
-            radi.name = "r" + String(parseInt(localStorage.getItem("q")) - 1 );
-
-            radi.value = "r" + String(parseInt(localStorage.getItem("ansn")) + i);
-            radi.type = "radio";
-            
-
-            flexer2.appendChild(ans);
-            br = document.createElement("br");
-
-            flexer2.appendChild(radi);
-            main.appendChild(flexer2);
-            
-            main.appendChild(br);
-
-        }
-  
-        
-        localStorage.setItem("ansn", parseInt(localStorage.getItem("ansn")) + 4);
-        document.getElementById("inp1").value =  parseInt(localStorage.getItem("q"));
-
-        document.getElementById("inp2").value =  parseInt(localStorage.getItem("ansn")); // the next item
-
-        var texars = document.querySelectorAll(".tex2");
-
-        texars.forEach(function (texar) {
-            texar.style.cssText = `height: ${texar.scrollHeight}px; overflow-y: hidden`;
-
-            texar.addEventListener("input", function () {
-                this.style.height = "auto";
-                this.style.height = `${this.scrollHeight}px`;
-            });
-        });
-       
-
-    }; 
-
-    var texars = document.querySelectorAll(".tex2");
-
-    texars.forEach(function (texar) {
-        texar.style.cssText = `height: ${texar.scrollHeight}px; overflow-y: hidden`;
-
-        texar.addEventListener("input", function () {
-            this.style.height = "auto";
-            this.style.height = `${this.scrollHeight}px`;
-        });
-    });
-
-    if(screen.width <= 1000){
-        var cont = document.getElementById("cont");
-        cont.style.width = "90%";
-    }else{
-        var cont = document.getElementById("cont");
-        cont.style.width = "40%";
-    }
-
-    
-</script>
+<script src = "maker.js"></script>
 </body>
 </html>

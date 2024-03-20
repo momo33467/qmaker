@@ -97,21 +97,37 @@
                     $j = 1;
                     echo '<div class="container" id = "cont">';
                     foreach($quests as $qs){
+
+                        if($qs["img"] == ''){
+                            $imageUrl = '';
+                        }else{
+                            $imageUrl = "data:".$qs['itype'].";base64,".base64_encode($qs['img']);
+                            
+                        }
+
                         echo'
                         <br>
                             <div id="main" style="display: block;">
-                            <label class="form-label qla" for="">Question '.$j.':</label>
-                                <form method = "post" class = "forms1">
-                                <textarea oninput="autoResize()" class="form-control tex2" id = "tex"  name="q0" rows="1" autocomplete="off">'.$qs["text"].'</textarea>
+                                <div>
+                                    <label class="form-label qla" for="">Question '.$j.':</label>
 
-                                <button type="submit" name="strush" class="delete-button" value = "'.$qs["ID"].'">
-                                    <i style="font-size:24px; color:red; margin-left:5px" class="fa delete-icon">&#xf014;</i>
-                                </button>
+                                    <div style = "width:100%; hight:40%"; class="image-container"'. (!empty($imageUrl) ? '' : ' style="display: none;"') .'>
+                                        <img style = "width:100%;" src="'.htmlspecialchars($imageUrl, ENT_QUOTES, 'UTF-8').'" >
+                                   </div>
 
-                                <button type="submit" name="editq" class="delete-button" value = "'.$qs["ID"].'">
-                                        <i style="font-size:24px; margin-left:5px" class="fa">&#xf040;</i>
+                                    <br>
+                                    <form method = "post" class = "forms1">
+                                    <textarea oninput="autoResize()" class="form-control tex2" id = "tex"  name="q0" rows="1" autocomplete="off">'.$qs["text"].'</textarea>
+
+                                    <button type="submit" name="strush" class="delete-button" value = "'.$qs["ID"].'">
+                                        <i style="font-size:24px; color:red; margin-left:5px" class="fa delete-icon">&#xf014;</i>
                                     </button>
-                                </form>
+
+                                    <button type="submit" name="editq" class="delete-button" value = "'.$qs["ID"].'">
+                                            <i style="font-size:24px; margin-left:5px" class="fa">&#xf040;</i>
+                                        </button>
+                                    </form>
+                                </div>
                         ';
                         
                         $l = 1;

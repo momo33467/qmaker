@@ -76,7 +76,19 @@
                 echo '<form method = "post">';
 
                 foreach($quests as $qs){
+
+                    if($qs["img"] == ''){
+                        $imageUrl = '';
+                    }else{
+                        $imageUrl = "data:".$qs['itype'].";base64,".base64_encode($qs['img']);
+                        
+                    }
+
                     echo'<div id = "qs">';
+                        
+                        echo '<div style = "width:100%; hight:40%"; class="image-container"'. (!empty($imageUrl) ? '' : ' style="display: none;"') .'>
+                             <img style = "width:100%;" src="'.htmlspecialchars($imageUrl, ENT_QUOTES, 'UTF-8').'" >
+                         </div>';
 
                         echo '<div style = "color:red;">
                                 <p id = "question">'.$j.':'.$qs["text"].'</p>
